@@ -1,15 +1,15 @@
 #!/usr/bin/env python3
 """
-watchtower.py - Универсальный мониторинг интернета
+cyclops.py - универсальный мониторинг интернета
 
 Мониторит Telegram каналы и RSS ленты на наличие ключевых слов.
 Поддерживает конфигурационные файлы и параметры командной строки.
 Автоматически фильтрует дубли и ограничивает период последними N днями.
 
 Использование:
-    python watchtower.py --config config.json
-    python watchtower.py --keywords "запрет,блокировка" --sources "telegram,rss"
-    python watchtower.py --topic "censorship" --channels "rian_ru,breakingmash"
+    python cyclops.py --config config.json
+    python cyclops.py --keywords "запрет,блокировка" --sources "telegram,rss"
+    python cyclops.py --topic "censorship" --channels "rian_ru,breakingmash"
 """
 
 import feedparser
@@ -47,7 +47,7 @@ def check_telegram_config(config: Dict) -> Dict:
 # ========== КОНФИГУРАЦИЯ ПО УМОЛЧАНИЮ ==========
 
 DEFAULT_CONFIG = {
-    "name": "watchtower",
+    "name": "cyclops",
     "keywords": [],
     "targets": [],
     "time_filter": {
@@ -103,7 +103,7 @@ TOPICS = {
 class DuplicateChecker:
     """Проверка дублей с помощью SQLite"""
     
-    def __init__(self, db_path: str = "watchtower_cache.db"):
+    def __init__(self, db_path: str = "cyclops_cache.db"):
         self.db_path = db_path
         self._init_db()
     
@@ -189,7 +189,7 @@ def load_config(config_path: str) -> Dict:
 def parse_cli_args():
     """Парсит аргументы командной строки"""
     parser = argparse.ArgumentParser(
-        description='Watchtower - Универсальный мониторинг интернета',
+        description='Cyclops - универсальный мониторинг интернета',
         formatter_class=argparse.RawDescriptionHelpFormatter,
         epilog="""
 Примеры:
@@ -294,7 +294,7 @@ async def init_telegram_client(api_id: int, api_hash: str, phone: str) -> Option
     
     session_dir = Path("telegram_sessions")
     session_dir.mkdir(exist_ok=True)
-    session_path = session_dir / "watchtower"
+    session_path = session_dir / "cyclops"
     
     client = TelegramClient(str(session_path), api_id, api_hash)
     
@@ -502,7 +502,7 @@ def generate_html(news: List[Dict], config: Dict, output_file: str) -> None:
     if not news:
         html = f"""
         <!DOCTYPE html>
-        <html><head><meta charset="UTF-8"><title>Watchtower - Ничего не найдено</title>
+        <html><head><meta charset="UTF-8"><title>Сyclops - ничего не найдено</title>
         <style>
             * {{ margin: 0; padding: 0; box-sizing: border-box; }}
             body {{
@@ -524,7 +524,7 @@ def generate_html(news: List[Dict], config: Dict, output_file: str) -> None:
         </head><body>
         <div class="container">
             <div class="card">
-                <h1>🏰 Watchtower</h1>
+                <h1>🏰 Сyclops</h1>
                 <p>По запросу "{', '.join(config.get('keywords', ['-'])[:5])}" ничего не найдено</p>
                 <p>Проверьте источники или ключевые слова</p>
             </div>
@@ -546,7 +546,7 @@ def generate_html(news: List[Dict], config: Dict, output_file: str) -> None:
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Watchtower - {len(news)} новостей</title>
+    <title>Сyclops - {len(news)} новостей</title>
     <style>
         * {{
             margin: 0;
@@ -712,7 +712,7 @@ def generate_html(news: List[Dict], config: Dict, output_file: str) -> None:
 <body>
     <div class="container">
         <div class="header">
-            <h1>🏰 Watchtower</h1>
+            <h1>🏰 Сyclops</h1>
             <div class="subtitle">Универсальный мониторинг интернета • последние {days_back} дней</div>
             <div class="stats">
                 <div class="stat-card">
@@ -763,7 +763,7 @@ def generate_html(news: List[Dict], config: Dict, output_file: str) -> None:
         </div>
         
         <div class="footer">
-            <p>🤖 Сгенерировано Watchtower | {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}</p>
+            <p>🤖 Сгенерировано Сyclops | {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}</p>
         </div>
     </div>
 </body>
@@ -793,7 +793,7 @@ def generate_json(news: List[Dict], config: Dict, output_file: str) -> None:
 
 async def main():
     print("=" * 60)
-    print("🏰 Watchtower - Универсальный мониторинг интернета")
+    print("Сyclops - универсальный мониторинг интернета")
     print("=" * 60)
     
     # Парсим аргументы
@@ -801,7 +801,7 @@ async def main():
     
     # Очистка кеша если нужно
     if args.clear_cache:
-        cache_file = Path("watchtower_cache.db")
+        cache_file = Path("cyclops_cache.db")
         if cache_file.exists():
             cache_file.unlink()
             print("🧹 Кеш дублей очищен")
@@ -866,7 +866,7 @@ async def main():
         output_dir.mkdir(exist_ok=True)
         
         timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-        base_name = config.get('name', 'watchtower')
+        base_name = config.get('name', 'cyclops')
         
         if args.output:
             html_file = args.output

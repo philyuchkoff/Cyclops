@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-config.py - Конфигуратор для Watchtower
+config.py - Конфигуратор для Cyclops
 
 Создает JSON конфиги через командную строку.
 
@@ -26,7 +26,7 @@ from datetime import datetime
 
 def parse_args():
     parser = argparse.ArgumentParser(
-        description='Watchtower Configuration Creator',
+        description='Cyclops Configuration Creator',
         formatter_class=argparse.RawDescriptionHelpFormatter,
         epilog="""
 Примеры:
@@ -296,7 +296,7 @@ def print_summary(config, filename):
     
     print("\n" + "=" * 60)
     print("🚀 Запуск мониторинга:")
-    print(f"   python watchtower.py {filename}")
+    print(f"   python cyclops.py {filename}")
     print("=" * 60)
 
 def main():

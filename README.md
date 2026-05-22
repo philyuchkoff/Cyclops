@@ -1,6 +1,6 @@
-# 🏰 Watchtower - универсальный мониторинг интернета
+# Cyclops - универсальный мониторинг интернета
 
-**Watchtower** — это инструмент командной строки для мониторинга интернета. Он автоматически сканирует Telegram-каналы и RSS-ленты, находит новости по заданным ключевым словам и создает красивые HTML-отчеты.
+**Cyclops** — это инструмент командной строки для мониторинга интернета. Он автоматически сканирует Telegram-каналы и RSS-ленты, находит новости по заданным ключевым словам и создает красивые HTML-отчеты.
 
 ## ✨ Возможности
 
@@ -17,8 +17,8 @@
 ### 1. Клонируйте репозиторий
 
 ```bash
-git clone https://github.com/philyuchkoff/watchtower.git
-cd watchtower
+git clone https://github.com/philyuchkoff/cyclops.git
+cd cyclops
 ```
 
 ### 2. Установите зависимости
@@ -33,7 +33,7 @@ pip install feedparser beautifulsoup4 telethon python-dateutil
 
 1. Перейдите на https://my.telegram.org/apps
 2. Авторизуйтесь под своим аккаунтом
-3. Создайте приложение (App title: "Watchtower или как хотите")
+3. Создайте приложение (App title: "Cyclops или как хотите")
 4. Скопируйте `api_id` и `api_hash`
 5. Настройте переменные окружения:
 
@@ -74,13 +74,13 @@ python config.py запрет --days 7 --name short_monitor
 ### Запустите
 
 ```bash
-python watchtower.py my_monitor.json
+python cyclops.py my_monitor.json
 ```
 
 ### Способ 2: без конфигуратора
 
 ```bash
-python watchtower.py --keywords "запрет,блокировка" --channels "rian_ru,breakingmash" --rss "РИА=https://ria.ru/export/rss2/index.xml"
+python cyclops.py --keywords "запрет,блокировка" --channels "rian_ru,breakingmash" --rss "РИА=https://ria.ru/export/rss2/index.xml"
 ```
 
 ## config.py - создание конфигов
@@ -136,10 +136,10 @@ python config.py запрет --rss "Reuters=http://feeds.reuters.com/reuters/te
 python config.py --list
 ```
 
-## watchtower.py - запуск
+## cyclops.py - запуск
 
 ```bash
-python watchtower.py [конфиг.json] [опции]
+python cyclops.py [конфиг.json] [опции]
 ```
 
 ### Опции
@@ -168,19 +168,19 @@ python watchtower.py [конфиг.json] [опции]
 
 ```bash
 # С конфигом
-python watchtower.py my_config.json
+python cyclops.py my_config.json
 
 # Только RSS из конфига
-python watchtower.py my_config.json --sources "rss"
+python cyclops.py my_config.json --sources "rss"
 
 # Переопределить ключевые слова
-python watchtower.py my_config.json --keywords "запрет,блокировка,цензура"
+python cyclops.py my_config.json --keywords "запрет,блокировка,цензура"
 
 # За последние 7 дней с очисткой кеша
-python watchtower.py my_config.json --days 7 --clear-cache
+python cyclops.py my_config.json --days 7 --clear-cache
 
 # Без конфига, всё через CLI
-python watchtower.py --keywords "запрет" --channels "rian_ru" --rss "РИА=https://ria.ru/export/rss2/index.xml"
+python cyclops.py --keywords "запрет" --channels "rian_ru" --rss "РИА=https://ria.ru/export/rss2/index.xml"
 ```
 
 ## Возможные проблемы и решения
@@ -204,10 +204,10 @@ python watchtower.py --keywords "запрет" --channels "rian_ru" --rss "РИ�
 
 ### Новости дублируются
 
-Watchtower автоматически фильтрует дубли через SQLite. Если нужно начать сбор заново:
+Cyclops автоматически фильтрует дубли через SQLite. Если нужно начать сбор заново:
 
 ```bash
-python watchtower.py my_config.json --clear-cache
+python cyclops.py my_config.json --clear-cache
 ```
 
 ### Получили FloodWait от Telegram
@@ -225,7 +225,7 @@ python config.py "искусственный интеллект" "нейросе
   --no-telegram \
   --name ai_news
 
-python watchtower.py ai_news.json
+python cyclops.py ai_news.json
 
 ```
 
@@ -234,14 +234,14 @@ python watchtower.py ai_news.json
 ```bash
 # Создайте скрипт daily.sh
 #!/bin/bash
-cd /path/to/watchtower
-python watchtower.py my_config.json --days 1
+cd /path/to/cyclops
+python cyclops.py my_config.json --days 1
 ```
 
 Добавьте в crontab:
 
 ```bash
-0 9 * * * /path/to/watchtower/daily.sh
+0 9 * * * /path/to/cyclops/daily.sh
 ```
 
 ## Используется

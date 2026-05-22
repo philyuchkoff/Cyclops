@@ -5,6 +5,7 @@ telegram_sessions/
 myconfigs/
 README_.md
 watchtower_cache.db
+Cyclops_cache.db
 
 # Python
 __pycache__/
