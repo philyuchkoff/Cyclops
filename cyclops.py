@@ -524,7 +524,7 @@ def generate_html(news: List[Dict], config: Dict, output_file: str) -> None:
         </head><body>
         <div class="container">
             <div class="card">
-                <h1>🏰 Сyclops</h1>
+                <h1>👁️ Сyclops</h1>
                 <p>По запросу "{', '.join(config.get('keywords', ['-'])[:5])}" ничего не найдено</p>
                 <p>Проверьте источники или ключевые слова</p>
             </div>
@@ -712,7 +712,7 @@ def generate_html(news: List[Dict], config: Dict, output_file: str) -> None:
 <body>
     <div class="container">
         <div class="header">
-            <h1>🏰 Сyclops</h1>
+            <h1>👁️ Сyclops</h1>
             <div class="subtitle">Универсальный мониторинг интернета • последние {days_back} дней</div>
             <div class="stats">
                 <div class="stat-card">
@@ -763,7 +763,7 @@ def generate_html(news: List[Dict], config: Dict, output_file: str) -> None:
         </div>
         
         <div class="footer">
-            <p>🤖 Сгенерировано Сyclops | {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}</p>
+            <p>👁️ Сгенерировано Сyclops | {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}</p>
         </div>
     </div>
 </body>
