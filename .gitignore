@@ -1,0 +1,22 @@
+# Secrets
+.env
+*.session
+telegram_sessions/
+myconfigs/
+README_.md
+watchtower_cache.db
+
+# Python
+__pycache__/
+*.pyc
+venv/
+.env
+
+# Output
+reports/*.html
+reports/*.json
+*.log
+
+# MacOS
+.DS_Store
+
